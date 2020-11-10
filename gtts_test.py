@@ -2,7 +2,8 @@
 # Requires PyAudio and PySpeech.
 
 import speech_recognition as sr
-
+import win32com.client as wincl
+speak = wincl.Dispatch("SAPI.SpVoice")
 # Record Audio
 r = sr.Recognizer()
 with sr.Microphone() as source:
@@ -15,6 +16,7 @@ try:
     # to use another API key, use `r.recognize_google(audio, key="GOOGLE_SPEECH_RECOGNITION_API_KEY")`
     # instead of `r.recognize_google(audio)`
     print("You said: " + r.recognize_google(audio))
+    speak.Speak(r.recognize_google(audio))
 except sr.UnknownValueError:
     print("Google Speech Recognition could not understand audio")
 except sr.RequestError as e:
